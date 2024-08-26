@@ -1,1 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encriptador de Texto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Encriptador y Desencriptador</h1>
+    <textarea id="texto" placeholder="Ingresa el texto aquí..."></textarea>
+    <br>
+    <select id="opcion">
+        <option value="encriptar">Encriptar</option>
+        <option value="desencriptar">Desencriptar</option>
+    </select>
+    <br>
+    <button onclick="procesarTexto()">Procesar</button>
+    <h2>Resultado:</h2>
+    <p id="resultado"></p>
 
+    <script>
+        function convertirTexto(texto) {
+            const reemplazos = { 'e': 'enter', 'i': 'imes', 'a': 'ai', 'o': 'ober', 'u': 'ufat' };
+            let textoConvertido = "";
+            for (let letra of texto) {
+                textoConvertido += reemplazos[letra] || letra;
+            }
+            return textoConvertido;
+        }
+
+        function revertirTexto(textoEncriptado) {
+            const reemplazosInversos = { 'enter': 'e', 'imes': 'i', 'ai': 'a', 'ober': 'o', 'ufat': 'u' };
+            for (let clave in reemplazosInversos) {
+                textoEncriptado = textoEncriptado.replace(new RegExp(clave, 'g'), reemplazosInversos[clave]);
+            }
+            return textoEncriptado;
+        }
+
+        function procesarTexto() {
+            const texto = document.getElementById("texto").value;
+            const opcion = document.getElementById("opcion").value;
+            let resultado = "";
+
+            if (opcion === "encriptar") {
+                resultado = convertirTexto(texto);
+            } else {
+                resultado = revertirTexto(texto);
+            }
+
+            document.getElementById("resultado").innerText = resultado;
+        }
+    </script>
+</body>
+</html>
